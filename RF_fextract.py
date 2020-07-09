@@ -30,13 +30,13 @@ def chunkIt(seq, num):
 
 def get_pkt_list(trace_data):
     first_line = trace_data[0]
-    first_line = first_line.split(" ")
+    first_line = first_line.split("\t")
 
     first_time = float(first_line[0])
     dta = []
     for line in trace_data:
         a = line
-        b = a.split(" ")
+        b = a.split("\t")
 
         if float(b[1]) > 0:
             #dta.append(((float(b[0])- first_time), abs(int(b[2])), 1))

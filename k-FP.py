@@ -6,7 +6,7 @@ import numpy as np
 #import matplotlib.pylab as plt
 import operator
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.cross_validation import cross_val_score
+from sklearn.model_selection import cross_val_score
 from sklearn import metrics
 from sklearn import tree
 import sklearn.metrics as skm
@@ -24,24 +24,24 @@ from itertools import chain
 
 ### Paths to data ###
 
-rootdir = r"../data/"
-alexa_monitored_data = rootdir + r"Alexa_Monitored/"
+rootdir = r"../batch/"
+alexa_monitored_data = rootdir
 hs_monitored_data = rootdir + r"HS_Monitored/"
 #monitored_data = rootdir + r"Monitored/"
-unmonitored_data = rootdir + r"Unmonitored/"
-dic_of_feature_data = rootdir + r"Features"
+unmonitored_data = rootdir
+dic_of_feature_data = rootdir + r"kFP-Features"
 
 
 ### Parameters ###
 # Number of sites, number of instances per site, number of (alexa/hs) monitored training instances per site, Number of trees for RF etc.
 
-alexa_sites = 55
-alexa_instances = 100
-alexa_train_inst = 60
+alexa_sites = 10
+alexa_instances = 40
+alexa_train_inst = 30
 
-hs_sites = 30
-hs_instances = 100
-hs_train_inst = 60
+hs_sites = 0
+hs_instances = 0
+hs_train_inst = 0
 
 #assert alexa_instances == hs_instances
 #assert alexa_train_inst == hs_train_inst
@@ -50,8 +50,8 @@ mon_test_inst = alexa_instances - mon_train_inst
 
 num_Trees = 1000
 
-unmon_total = 100000
-unmon_train = 5000
+unmon_total = 0
+unmon_train = 0
 
 
 ############ Feeder functions ############
@@ -83,7 +83,8 @@ def dictionary_(path_to_dict = dic_of_feature_data, path_to_alexa = alexa_monito
     print "Creating Alexa features..."
     for i in range(alexa_sites):
         for j in range(alexa_instances):
-            fname = str(i) + "_" + str(j)
+            fname = str(i) + "-" + str(j)
+            print path_to_alexa + fname
             if os.path.exists(path_to_alexa + fname):
                 tcp_dump = open(path_to_alexa + fname).readlines()
                 g = []
